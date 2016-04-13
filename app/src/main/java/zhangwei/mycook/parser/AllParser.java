@@ -8,9 +8,6 @@ import java.util.ArrayList;
 
 import zhangwei.mycook.model.Category;
 import zhangwei.mycook.model.CookDetail;
-import zhangwei.mycook.model.Event;
-
-import static zhangwei.mycook.model.CookDetail.*;
 
 
 /**
@@ -20,15 +17,6 @@ public class AllParser {
 
     public static boolean success(JSONObject jsonObject) {
         return jsonObject.optInt("error_code", 1) == 0;
-    }
-
-    public static Event parserEvent(JSONObject jsonObject) {
-        Event history = new Event();
-        history._id = jsonObject.optString("e_id");
-        history.date = jsonObject.optString("date");
-        history.title = jsonObject.optString("title");
-        history.day = jsonObject.optString("day");
-        return history;
     }
 
     public static CookDetail parserCookDetail(JSONObject jsonObject) {

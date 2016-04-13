@@ -15,7 +15,6 @@ public class CookDetail implements Serializable {
     public String burden;
     public ArrayList<String> albums;
     public ArrayList<Step> steps;
-    public String totalNum;
 
     public static class Step implements Serializable {
         public String img;

@@ -31,7 +31,7 @@ import zhangwei.mycook.view.activity.SearchResultActivity;
 public class Manager extends AbstractManager {
     private static final String TAG = "Manager";
     private static Manager instance;
-    private static SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.getApp());
+    private static SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.getContext());
 
     public static synchronized Manager getInstance() {
         if (instance == null) {

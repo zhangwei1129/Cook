@@ -8,12 +8,12 @@ import android.app.Application;
 public class App {
     private static Application app;
 
-    public static Application getApp() {
-        return app;
-    }
-
     public static void setApp(Application app) {
         App.app = app;
+    }
+
+    public static Application getContext() {
+        return app;
     }
 
 }
