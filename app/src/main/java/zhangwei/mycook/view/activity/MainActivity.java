@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-
-import com.android.volley.toolbox.Volley;
 
 import zhangwei.mycook.R;
 import zhangwei.mycook.common.FormatActivity;
