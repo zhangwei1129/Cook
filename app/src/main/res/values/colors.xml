@@ -152,4 +152,6 @@
     <color name="navy">#000080</color><!--海军色 -->
     <color name="black">#000000</color><!--黑色 -->
 
+    <color name="titlebar_color">#C81624</color><!-- 标题栏底色 -->
+
 </resources>

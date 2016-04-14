@@ -26,12 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity android:name=".view.activity.MainActivity"/>
+
         <activity
             android:name=".view.activity.GuideActivity"
             android:screenOrientation="portrait">
         </activity>
+
         <activity android:name=".view.activity.CategoryActivity"/>
+        <activity android:name=".view.activity.SearchActivity"/>
+
         <activity android:name=".view.activity.SubcategoryActivity"/>
         <activity android:name=".view.activity.SearchResultActivity"/>
     </application>

@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+
+import com.android.volley.toolbox.Volley;
 
 import zhangwei.mycook.R;
 import zhangwei.mycook.common.FormatActivity;
@@ -20,15 +25,20 @@ public class MainActivity extends FormatActivity {
         context.startActivity(starter);
     }
 
+    FrameLayout btnSearch;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mian);
+        initWidget();
+        initData();
+        initListener();
     }
 
     @Override
     public void initWidget() {
-
+        btnSearch = (FrameLayout) findViewById(R.id.flSearch);
     }
 
     @Override
@@ -38,6 +48,11 @@ public class MainActivity extends FormatActivity {
 
     @Override
     public void initListener() {
-
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchActivity.start(MainActivity.this);
+            }
+        });
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomTitleBar">
+        <attr name="customTitleText" format="string"/>
+        <attr name="customTitleTextSize" format="dimension"/>
+        <attr name="customTitleTextColor" format="color"/>
+        <attr name="customTitleBackground" format="color"/>
+    </declare-styleable>
+</resources>

@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">尝尝</string>
+    <string name="app_name">馔馐谭</string>
+    <string name="shiyishi">馔馐谭</string>
+    <string name="search_hint">想吃什么</string>
+    <string name="search_empty">居然没有找到，试试其它爱吃的吧</string>
+    <string name="search_text_is_empty">搜索栏不能为空</string>
 </resources>
