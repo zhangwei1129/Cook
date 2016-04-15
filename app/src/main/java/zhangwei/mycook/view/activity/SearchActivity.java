@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -41,6 +42,8 @@ public class SearchActivity extends FormatActivity {
 
     String inputText;
     CookListAdapter adapter;
+    ArrayList<CookDetail> temp;
+    String pn;
 
 
     public static void start(Context context) {
@@ -69,7 +72,8 @@ public class SearchActivity extends FormatActivity {
 
     @Override
     public void initData() {
-
+        temp = new ArrayList<>();
+        pn = "0";
     }
 
     @Override
@@ -100,21 +104,22 @@ public class SearchActivity extends FormatActivity {
             public void afterTextChanged(Editable s) {
 
             }
-        });            btnSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        });
 
-
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    inputText = etSearch.getText().toString();
-                    if (TextUtils.isEmpty(inputText)) {
-                        SoftInput.hideSoftInput(SearchActivity.this);
-                        ToastUtil.showLongToast(SearchActivity.this, getString(R.string.search_text_is_empty));
-                    } else {
-                        getCookDetailFromQuery(inputText, "0");
-                    }
+                    doSearch();
                 }
                 return false;
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doSearch();
             }
         });
 
@@ -124,17 +129,57 @@ public class SearchActivity extends FormatActivity {
                 etSearch.setText("");
             }
         });
+
+        lvSearchList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                switch (scrollState) {
+                    case SCROLL_STATE_IDLE:
+                        if (view.getLastVisiblePosition() == (view.getCount() - 2)) {
+                            pn = String.valueOf(Integer.getInteger(pn) + 1);
+                            getCookDetailFromQuery(inputText, pn);
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            }
+        });
     }
 
-    public void getCookDetailFromQuery(String menu, String pn) {
+    private void doSearch() {
+        inputText = etSearch.getText().toString();
+        if (TextUtils.isEmpty(inputText)) {
+            SoftInput.hideSoftInput(SearchActivity.this);
+            ToastUtil.showLongToast(SearchActivity.this, getString(R.string.search_text_is_empty));
+        } else {
+            getCookDetailFromQuery(inputText, "0");
+        }
+    }
+
+    public void getCookDetailFromQuery(String menu, final String pn) {
         Manager.getInstance().getCookDetailFromQuery(this, menu, pn, new SimpleListener<ArrayList<CookDetail>>() {
             @Override
             public void onFinish(ArrayList<CookDetail> cookDetails) {
-                adapter.setList(cookDetails);
+                if (!pn.equals("0")) {
+                    int index = temp.size();
+                    temp.addAll(index, cookDetails);
+                } else {
+                    temp = cookDetails;
+                }
+                if (temp.isEmpty()) {
+                    adapter.setList(temp);
+                } else {
+                    adapter.setList(null);
+                }
             }
 
             @Override
             public void onError(String message) {
+                adapter.setList(null);
+                ToastUtil.showLongToast(SearchActivity.this, message);
 
             }
         });

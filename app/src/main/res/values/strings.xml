@@ -4,4 +4,8 @@
     <string name="search_hint">想吃什么</string>
     <string name="search_empty">居然没有找到，试试其它爱吃的吧</string>
     <string name="search_text_is_empty">搜索栏不能为空</string>
+    <string name="test_text_title">短标题</string>
+    <string name="test_text_content">所谓“鱼香肉丝”，就是用四川家常做鱼的调料来炒肉丝，据说这个菜也是偶然产生。某年某月的某一天，一个煮妇看家里剩了些做鱼的调料，主要就是泡辣椒、葱姜蒜什么的，觉得怪可惜，就用来炒肉丝，结果一吃觉得味道不错，后来又用这种方法来烹饪茄子、鸡蛋等等。渐渐传开后，深受人民群众欢迎，便形成了四川菜中的一个重要味型——“鱼香”型。本是无意间的凑合，结果却成就了一代经典。 这个家喻户晓的菜有必要学习哦！</string>
+    <string name="test_text_content2">瘦猪肉,50g;黄瓜,100g;水发木耳,50g</string>
+
 </resources>
