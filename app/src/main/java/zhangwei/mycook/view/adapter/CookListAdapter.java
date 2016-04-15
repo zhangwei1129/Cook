@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 
 import zhangwei.mycook.R;
-import zhangwei.mycook.common.BitmapCache;
 import zhangwei.mycook.common.NiftyListAdapter;
 import zhangwei.mycook.common.util.ToastUtil;
 import zhangwei.mycook.model.CookDetail;
@@ -38,9 +37,7 @@ public class CookListAdapter extends NiftyListAdapter<CookDetail> {
         }
 
         final CookDetail detail = getList().get(position);
-        mImageLoader = new ImageLoader(VolleyUtil.getRequestQueue(), new BitmapCache());
-        ImageLoader.ImageListener listener = ImageLoader.getImageListener(holder.ivPhoto, android.R.drawable.ic_menu_report_image, android.R.drawable.ic_delete);
-        mImageLoader.get(detail.albums.get(0), listener);
+        VolleyUtil.load(detail.albums.get(0), holder.ivPhoto, R.drawable.image);
         holder.tvCookName.setText(detail.title);
         holder.tvIngredients.setText(detail.ingredients);
         holder.root.setOnClickListener(new View.OnClickListener() {

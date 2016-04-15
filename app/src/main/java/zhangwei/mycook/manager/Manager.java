@@ -53,6 +53,7 @@ public class Manager extends AbstractManager {
 
             @Override
             public void onSuccess(int statusCode, String responseString) {
+                Log.d(TAG, "onSuccess() called with: " + "statusCode = [" + statusCode + "], responseString = [" + responseString + "]");
                 if (!TextUtils.isEmpty(responseString)) {
                     try {
                         JSONObject jsonObject = new JSONObject(responseString);

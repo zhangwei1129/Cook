@@ -27,6 +27,7 @@ import zhangwei.mycook.common.util.ToastUtil;
 import zhangwei.mycook.manager.Manager;
 import zhangwei.mycook.model.CookDetail;
 import zhangwei.mycook.view.adapter.CookListAdapter;
+import zhangwei.mycook.view.customview.NiftyProgressBar;
 
 /**
  * Created by zhangwei25 on 2016/4/14.
@@ -44,6 +45,7 @@ public class SearchActivity extends FormatActivity {
     CookListAdapter adapter;
     ArrayList<CookDetail> temp;
     String pn;
+    NiftyProgressBar bar;
 
 
     public static void start(Context context) {
@@ -67,15 +69,16 @@ public class SearchActivity extends FormatActivity {
         btnClean = (ImageView) findViewById(R.id.ivClean);
         btnSearch = (TextView) findViewById(R.id.tvSearch);
         lvSearchList = (ListView) findViewById(R.id.searchList);
-
+        bar = NiftyProgressBar.newInstance(this);
     }
 
     @Override
     public void initData() {
         temp = new ArrayList<>();
         pn = "0";
-        adapter= new CookListAdapter(SearchActivity.this);
+        adapter = new CookListAdapter(SearchActivity.this);
         lvSearchList.setAdapter(adapter);
+        lvSearchList.setEmptyView(findViewById(R.id.rl_search_empty));
     }
 
     @Override
@@ -135,18 +138,17 @@ public class SearchActivity extends FormatActivity {
         lvSearchList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                switch (scrollState) {
-                    case SCROLL_STATE_IDLE:
-                        if (view.getLastVisiblePosition() == (view.getCount() - 2)) {
-                            pn = String.valueOf(Integer.getInteger(pn) + 1);
-                            getCookDetailFromQuery(inputText, pn);
-                        }
-                        break;
+                if (scrollState == SCROLL_STATE_FLING) {
+
                 }
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (view.getLastVisiblePosition() >= (totalItemCount - 2)) {
+                    pn = String.valueOf(temp.size());
+                    getCookDetailFromQuery(inputText, pn);
+                }
             }
         });
     }
@@ -162,6 +164,7 @@ public class SearchActivity extends FormatActivity {
     }
 
     public void getCookDetailFromQuery(String menu, final String pn) {
+        bar.show();
         Manager.getInstance().getCookDetailFromQuery(this, menu, pn, new SimpleListener<ArrayList<CookDetail>>() {
             @Override
             public void onFinish(ArrayList<CookDetail> cookDetails) {
@@ -171,18 +174,26 @@ public class SearchActivity extends FormatActivity {
                 } else {
                     temp = cookDetails;
                 }
-                if (temp.isEmpty()) {
+                if (!temp.isEmpty()) {
+                    lvSearchList.setVisibility(View.VISIBLE);
                     adapter.setList(temp);
                 } else {
                     adapter.setList(null);
+                }
+                if (bar.isShowing()) {
+                    bar.dismiss();
                 }
             }
 
             @Override
             public void onError(String message) {
                 adapter.setList(null);
-                ToastUtil.showLongToast(SearchActivity.this, message);
-
+                if (bar.isShowing()) {
+                    bar.dismiss();
+                }
+                if (!TextUtils.isEmpty(message)) {
+                    ToastUtil.showLongToast(SearchActivity.this, message);
+                }
             }
         });
     }
