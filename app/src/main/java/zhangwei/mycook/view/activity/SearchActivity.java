@@ -74,6 +74,8 @@ public class SearchActivity extends FormatActivity {
     public void initData() {
         temp = new ArrayList<>();
         pn = "0";
+        adapter= new CookListAdapter(SearchActivity.this);
+        lvSearchList.setAdapter(adapter);
     }
 
     @Override
