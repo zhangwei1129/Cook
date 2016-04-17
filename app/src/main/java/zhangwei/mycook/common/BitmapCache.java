@@ -17,6 +17,15 @@ public class BitmapCache implements ImageLoader.ImageCache {
 
     private LruCache<String, Bitmap> mCache;
 
+    public static BitmapCache instance;
+
+    public static synchronized BitmapCache getInstance() {
+        if (instance == null) {
+            instance = new BitmapCache();
+        }
+        return instance;
+    }
+
     public BitmapCache() {
         int memClass = ((ActivityManager) App.getContext().getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
         int cacheSize = 1024 * 1024 * memClass / 8;
@@ -25,7 +34,6 @@ public class BitmapCache implements ImageLoader.ImageCache {
             protected int sizeOf(String key, Bitmap value) {
                 return value.getRowBytes() * value.getHeight();
             }
-
         };
     }
 

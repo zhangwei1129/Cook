@@ -153,5 +153,6 @@
     <color name="black">#000000</color><!--黑色 -->
 
     <color name="titlebar_color">#C81624</color><!-- 标题栏底色 -->
+    <color name="translucent">#e0000000</color><!-- 半透明 -->
 
 </resources>

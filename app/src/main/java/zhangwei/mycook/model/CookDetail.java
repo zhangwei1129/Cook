@@ -1,5 +1,8 @@
 package zhangwei.mycook.model;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

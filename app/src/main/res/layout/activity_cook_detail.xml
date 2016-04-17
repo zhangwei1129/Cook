@@ -51,37 +51,26 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tvContent"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:maxLines="5"
-        android:text="@string/test_text_content"
-        android:textColor="@color/dimgray"
-        android:textSize="16sp"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginRight="16dp"
-        android:text="更多..."
-        android:textColor="@color/darkblue"
-        android:textSize="16sp"/>
+        <ListView
+            android:id="@+id/lvCookDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
-    <ListView
-        android:id="@+id/lvStep"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"/>
+        <ImageView
+            android:id="@+id/ivEnlarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </FrameLayout>
+
 
 </LinearLayout>
 
-<!--左上角添加图片-->
-<!--ImageSpan  更多用与这个相关的-->
+    <!--左上角添加图片-->
+    <!--ImageSpan  更多用与这个相关的-->

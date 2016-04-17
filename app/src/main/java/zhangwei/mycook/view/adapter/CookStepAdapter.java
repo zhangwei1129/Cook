@@ -11,21 +11,22 @@ import zhangwei.mycook.common.NiftyListAdapter;
 import zhangwei.mycook.common.util.ToastUtil;
 import zhangwei.mycook.model.CookDetail;
 import zhangwei.mycook.view.activity.CookDetailActivity;
+import zhangwei.mycook.view.activity.StepShowActivity;
 import zhangwei.mycook.volleyutil.VolleyUtil;
 
 /**
- * Created by zhangwei25 on 2016/4/14.
+ * Created by Administrator on 2016.04.16.
  */
-public class CookListAdapter extends NiftyListAdapter<CookDetail> {
-    private static final String TAG = "CookListAdapter";
-
-    public CookListAdapter(Activity context) {
+public class CookStepAdapter extends NiftyListAdapter<CookDetail.Step> {
+    CookDetail detail;
+    public CookStepAdapter(Activity context, CookDetail detail) {
         super(context);
+        this.detail = detail;
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        final ViewHolder holder;
+        ViewHolder holder;
         if (convertView == null) {
             convertView = getInflater().inflate(R.layout.item_cooklist, null);
             holder = new ViewHolder(convertView);
@@ -34,15 +35,14 @@ public class CookListAdapter extends NiftyListAdapter<CookDetail> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final CookDetail detail = getList().get(position);
-        VolleyUtil.load(detail.albums.get(0), holder.ivPhoto, R.drawable.image);
-        holder.tvCookName.setText(detail.title);
-        holder.tvIngredients.setText(detail.ingredients);
+        final CookDetail.Step step = getList().get(position);
+        VolleyUtil.load(step.img, holder.ivPhoto, R.drawable.image);
+        holder.tvStep.setText(step.step);
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showLongToast(getContext(), "CookListAdapter " + position);
-                CookDetailActivity.start(getContext(), detail);
+                ToastUtil.showLongToast(getContext(), "CookStepAdapter " + position);
+                StepShowActivity.start(getContext(),detail,position);
             }
         });
 
@@ -51,17 +51,14 @@ public class CookListAdapter extends NiftyListAdapter<CookDetail> {
 
     class ViewHolder {
         ImageView ivPhoto;
-        TextView tvCookName;
-        TextView tvIngredients;
+        TextView tvStep;
 
         View root;
 
         public ViewHolder(View root) {
             ivPhoto = (ImageView) root.findViewById(R.id.ivPhoto);
-            tvCookName = (TextView) root.findViewById(R.id.tvTitle);
-            tvIngredients = (TextView) root.findViewById(R.id.tvContent);
+            tvStep = (TextView) root.findViewById(R.id.tvContent);
             this.root = root;
         }
     }
-
 }

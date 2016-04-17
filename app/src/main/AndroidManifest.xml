@@ -36,6 +36,8 @@
 
         <activity android:name=".view.activity.CategoryActivity"/>
         <activity android:name=".view.activity.SearchActivity"/>
+        <activity android:name=".view.activity.CookDetailActivity"/>
+        <activity android:name=".view.activity.StepShowActivity"/>
 
         <activity android:name=".view.activity.SubcategoryActivity"/>
         <activity android:name=".view.activity.SearchResultActivity"/>

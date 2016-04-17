@@ -31,14 +31,15 @@ public class VolleyUtil {
     }
 
     public static void load(String url, ImageView view, int defaultImageResId, int errorImageResId) {
-        ImageLoader mImageLoader = new ImageLoader(getRequestQueue(), new BitmapCache());
+        ImageLoader mImageLoader = new ImageLoader(getRequestQueue(), BitmapCache.getInstance());
         ImageLoader.ImageListener listener = ImageLoader.getImageListener(view, defaultImageResId, errorImageResId);
         mImageLoader.get(url, listener);
     }
 
     public static void load(String url, ImageView view, int defaultImageResId) {
-        ImageLoader mImageLoader = new ImageLoader(getRequestQueue(), new BitmapCache());
+        ImageLoader mImageLoader = new ImageLoader(getRequestQueue(), BitmapCache.getInstance());
         ImageLoader.ImageListener listener = ImageLoader.getImageListener(view, defaultImageResId, 0);
         mImageLoader.get(url, listener);
     }
+
 }
