@@ -206,7 +206,7 @@ public class SearchActivity extends FormatActivity {
             for (int j = 0; j < 5; j++) {
                 CookDetail.Step step = new CookDetail.Step();
                 step.img = getString(R.string.test_detail_albums);
-                step.step = "1.将五花肉煮至断生状态";
+                step.step = "1.将五花肉煮至断生状态 + " + j;
                 detail.steps.add(step);
             }
             temp.add(detail);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import zhangwei.mycook.R;
@@ -19,6 +20,7 @@ import zhangwei.mycook.volleyutil.VolleyUtil;
  */
 public class CookStepAdapter extends NiftyListAdapter<CookDetail.Step> {
     CookDetail detail;
+
     public CookStepAdapter(Activity context, CookDetail detail) {
         super(context);
         this.detail = detail;
@@ -42,7 +44,7 @@ public class CookStepAdapter extends NiftyListAdapter<CookDetail.Step> {
             @Override
             public void onClick(View v) {
                 ToastUtil.showLongToast(getContext(), "CookStepAdapter " + position);
-                StepShowActivity.start(getContext(),detail,position);
+                StepShowActivity.start(getContext(), detail, position);
             }
         });
 
