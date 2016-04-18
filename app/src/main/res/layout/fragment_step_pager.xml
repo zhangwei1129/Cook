@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/black"
@@ -9,6 +10,8 @@
         android:id="@+id/ivStepPhoto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:scaleType="centerCrop"
+        tools:src="@drawable/image"
         />
 
     <TextView
@@ -17,9 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/translucent"
-        android:padding="16dp"
-        android:text="@string/test_text_content2"
-        android:textColor="@color/gray"/>
+        android:padding="20dp"
+        android:textColor="@color/gray"
+        tools:text="@string/test_text_content2"/>
 
 
 </RelativeLayout>

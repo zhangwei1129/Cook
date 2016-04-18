@@ -7,11 +7,25 @@
     <string name="test_text_title">短标题</string>
     <string name="test_text_content">所谓“鱼香肉丝”，就是用四川家常做鱼的调料来炒肉丝，据说这个菜也是偶然产生。某年某月的某一天，一个煮妇看家里剩了些做鱼的调料，主要就是泡辣椒、葱姜蒜什么的，觉得怪可惜，就用来炒肉丝，结果一吃觉得味道不错，后来又用这种方法来烹饪茄子、鸡蛋等等。渐渐传开后，深受人民群众欢迎，便形成了四川菜中的一个重要味型——“鱼香”型。本是无意间的凑合，结果却成就了一代经典。 这个家喻户晓的菜有必要学习哦！</string>
     <string name="test_text_content2">瘦猪肉,50g;黄瓜,100g;水发木耳,50g</string>
-    <string name="test_detail_title">"秘制红烧肉 "</string>
-    <string name="test_detail_ingredients">五花肉,500g</string>
+    <string name="test_detail_title">"春笋红烧肉 "</string>
+    <string name="test_detail_ingredients">五花肉,500g;春笋,3根</string>
     <string name="test_detail_intro">做红烧肉的豆亲们很多，大家对红烧肉的热爱更不用我说，从名字上就能反映出来。一些高手们对红烧肉的认识更是令我佩服，单单就红烧肉的做法、菜谱都看得我是眼花缭乱，口水横流。单纯的红烧肉我平时还真没做过，再不抓紧时间做一回解解馋，不是对不起别人，而是太对不起我自己了！这道菜的菜名用了秘制二字来形容，当然是自己根据自己多年吃货的经验想象出来的，我不介意把自己的做法与大家共享，只为大家能同我一样，吃到不同口味的红烧肉。不同的人们根据自己的习惯都有不同的做法，味道也不尽相同。我的秘制的关键就是必须用玫瑰腐乳、冰糖和米醋这三种食材，腐乳和冰糖可以使烧出来的肉色泽红亮，米醋能解腻，令肥肉肥而不腻，此法烧制的红烧肉软糯中略带咸甜，的确回味无穷！</string>
-    <string name="test_detail_tags">家常菜;热菜;烧;煎;炖;红烧;炒锅</string>
-    <string name="test_detail_burden">玫瑰腐乳,适量;盐,适量;八角,适量;草果,适量;香叶,适量;料酒,适量;米醋,适量;生姜,适量</string>
-    <string name="test_detail_albums">http://img.juhe.cn/cookbook/t/0/45_854851.jpg</string>
+    <string name="test_detail_tags">下饭菜;春季;晚餐;红烧</string>
+    <string name="test_detail_burden">油,适量;盐,适量;生姜,适量;酱油,适量;生姜,适量;大蒜,适量;糖,适量</string>
+    <string name="test_detail_albums">http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/t/12/11275_441731.jpg</string>
+    <string name="test_detail_step1">http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/113/11275_3b957a5bb17fae06.jpg</string>
+    <string name="test_detail_step11">1.适量酱油上色。</string>
+    <string name="test_detail_step2">http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/113/11275_47144d85e68e4115.jpg</string>
+    <string name="test_detail_step22">2.起油锅，煸炒猪肉出油。</string>
+    <string name="test_detail_step3">http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/113/11275_c28efc13f273d553.jpg</string>
+    <string name="test_detail_step33">3.出油后放入姜片和蒜片爆香。</string>
+    <string name="test_detail_step4">http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/113/11275_a1d08bc38540d069.jpg</string>
+    <string name="test_detail_step44">4.加入水没过五花肉。</string>
+    <string name="test_detail_step5">http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/113/11275_e4f620e4015ad93b.jpg</string>
+    <string name="test_detail_step55">5.30分钟后加入竹笋煮熟。</string>
+    <string name="test_detail_step6">http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/113/11275_d72c560d172a794e.jpg</string>
+    <string name="test_detail_step66">6.适量盐和糖调味。</string>
+    <string name="test_detail_step7">http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/113/11275_091636100cbe10d2.jpg</string>
+    <string name="test_detail_step77">7.大火收汁。</string>
 
 </resources>

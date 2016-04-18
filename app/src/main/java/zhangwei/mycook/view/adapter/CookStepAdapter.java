@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import zhangwei.mycook.R;
 import zhangwei.mycook.common.NiftyListAdapter;
 import zhangwei.mycook.common.util.ToastUtil;
 import zhangwei.mycook.model.CookDetail;
-import zhangwei.mycook.view.activity.CookDetailActivity;
 import zhangwei.mycook.view.activity.StepShowActivity;
 import zhangwei.mycook.volleyutil.VolleyUtil;
 

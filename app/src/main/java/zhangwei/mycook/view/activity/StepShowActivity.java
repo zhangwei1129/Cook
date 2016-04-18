@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,7 @@ public class StepShowActivity extends FormatActivity {
 
     ViewPager stepPager;
     StepShowAdapter adapter;
-
+    private FrameLayout btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,7 @@ public class StepShowActivity extends FormatActivity {
 
     @Override
     public void initWidget() {
+        btnBack = (FrameLayout) findViewById(R.id.flBack);
         stepPager = (ViewPager) findViewById(R.id.viewPager);
     }
 
@@ -62,6 +65,11 @@ public class StepShowActivity extends FormatActivity {
 
     @Override
     public void initListener() {
-
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

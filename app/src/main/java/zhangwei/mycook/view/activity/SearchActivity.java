@@ -1,5 +1,8 @@
 package zhangwei.mycook.view.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,7 +46,7 @@ public class SearchActivity extends FormatActivity {
     private TextView btnSearch;
     private ListView lvSearchList;
 
-    private LinearLayout llTags;
+    private LinearLayout llTags, llSearch;
 
     private String inputText;
     private CookListAdapter adapter;
@@ -51,6 +54,8 @@ public class SearchActivity extends FormatActivity {
     private String pn;
     private NiftyProgressBar bar;
 
+    boolean isAnim = false;
+    private int lastFirstVisibleItemPosition;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SearchActivity.class);
@@ -68,6 +73,7 @@ public class SearchActivity extends FormatActivity {
 
     @Override
     public void initWidget() {
+        llSearch = (LinearLayout) findViewById(R.id.llSearch);
         btnBack = (FrameLayout) findViewById(R.id.flBack);
         etSearch = (EditText) findViewById(R.id.etSearch);
         btnClean = (ImageView) findViewById(R.id.ivClean);
@@ -146,20 +152,80 @@ public class SearchActivity extends FormatActivity {
         lvSearchList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == SCROLL_STATE_FLING) {
-
+                if (scrollState == SCROLL_STATE_IDLE) {
+                    lastFirstVisibleItemPosition = view.getFirstVisiblePosition();
+                    if (view.getLastVisiblePosition() >= (view.getCount() - 2)) {
+                        pn = String.valueOf(temp.size());
+//                    getCookDetailFromQuery(inputText, pn);
+                        getData();
+                    }
                 }
+
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (view.getLastVisiblePosition() >= (totalItemCount - 2)) {
-                    pn = String.valueOf(temp.size());
-//                    getCookDetailFromQuery(inputText, pn);
-                    getData();
+                if (firstVisibleItem == 0) {
+                    llSearch.setVisibility(View.VISIBLE);
+                }
+                if (firstVisibleItem > lastFirstVisibleItemPosition && llSearch.getVisibility() == View.VISIBLE) {
+                    Log.d("dc", "上滑");
+//                        llSearch.setVisibility(View.GONE);
+                    if (!isAnim) {
+                        animSearch();
+                    }
+
+
+                }
+                if (firstVisibleItem < lastFirstVisibleItemPosition) {
+                    Log.d("dc", "下滑");
+                    llSearch.setVisibility(View.VISIBLE);
                 }
             }
         });
+
+    }
+
+    private void animSearch() {
+//        ScaleAnimation animation = new ScaleAnimation(1, 1, 1, 0);
+//        animation.setDuration(200);
+//        llSearch.startAnimation(animation);
+//        animation.setAnimationListener(new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//                isAnim = true;
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//                llSearch.setVisibility(View.GONE);
+//                isAnim = false;
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//        });
+
+        ObjectAnimator animator = ObjectAnimator.ofFloat(llSearch, "scaleY", 1, 0);
+        animator.setDuration(500);
+        animator.start();
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                llSearch.setVisibility(View.GONE);
+                isAnim = false;
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                isAnim = true;
+            }
+        });
+
     }
 
     private void doSearch() {
@@ -191,11 +257,14 @@ public class SearchActivity extends FormatActivity {
      * "burden": "玫瑰腐乳,适量;盐,适量;八角,适量;草果,适量;香叶,适量;料酒,适量;米醋,适量;生姜,适量",
      * "albums": ["http:\/\/img.juhe.cn\/cookbook\/t\/0\/45_854851.jpg"],
      */
+    int max = 10;
 
     private void getData() {
+        Log.e(TAG, "getData: ");
         lvSearchList.setVisibility(View.VISIBLE);
         temp.clear();
-        for (int i = 0; i < 10; i++) {
+
+        for (int i = 0; i < max; i++) {
             CookDetail detail = new CookDetail();
             detail.title = getString(R.string.test_detail_title) + i;
             detail.ingredients = getString(R.string.test_detail_ingredients);
@@ -205,16 +274,46 @@ public class SearchActivity extends FormatActivity {
             detail.albums = new ArrayList<>();
             detail.albums.add(getString(R.string.test_detail_albums));
             detail.steps = new ArrayList<>();
-            for (int j = 0; j < 5; j++) {
-                CookDetail.Step step = new CookDetail.Step();
-                step.img = getString(R.string.test_detail_albums);
-                step.step = "1.将五花肉煮至断生状态 + " + j;
-                detail.steps.add(step);
-            }
+
+            CookDetail.Step step1 = new CookDetail.Step();
+            step1.img = getString(R.string.test_detail_step1);
+            step1.step = getString(R.string.test_detail_step11);
+            detail.steps.add(step1);
+
+            CookDetail.Step step2 = new CookDetail.Step();
+            step2.img = getString(R.string.test_detail_step2);
+            step2.step = getString(R.string.test_detail_step22);
+            detail.steps.add(step2);
+
+            CookDetail.Step step3 = new CookDetail.Step();
+            step3.img = getString(R.string.test_detail_step3);
+            step3.step = getString(R.string.test_detail_step33);
+            detail.steps.add(step3);
+
+            CookDetail.Step step4 = new CookDetail.Step();
+            step4.img = getString(R.string.test_detail_step4);
+            step4.step = getString(R.string.test_detail_step44);
+            detail.steps.add(step4);
+
+            CookDetail.Step step5 = new CookDetail.Step();
+            step5.img = getString(R.string.test_detail_step5);
+            step5.step = getString(R.string.test_detail_step55);
+            detail.steps.add(step5);
+
+            CookDetail.Step step6 = new CookDetail.Step();
+            step6.img = getString(R.string.test_detail_step6);
+            step6.step = getString(R.string.test_detail_step66);
+            detail.steps.add(step6);
+
+            CookDetail.Step step7 = new CookDetail.Step();
+            step7.img = getString(R.string.test_detail_step7);
+            step7.step = getString(R.string.test_detail_step77);
+            detail.steps.add(step7);
+
             temp.add(detail);
         }
         adapter.setList(temp);
-
+        max += 10;
     }
 
     public void getCookDetailFromQuery(String menu, final String pn) {

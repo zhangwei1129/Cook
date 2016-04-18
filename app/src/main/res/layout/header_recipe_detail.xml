@@ -11,12 +11,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ivPhoto"
+        <FrameLayout
+            android:id="@+id/flPhotoContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/img2"
+                />
+        </FrameLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
