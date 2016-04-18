@@ -163,12 +163,14 @@ public class SearchActivity extends FormatActivity {
     }
 
     private void doSearch() {
-        llTags.setVisibility(View.GONE);
+
         inputText = etSearch.getText().toString();
         if (TextUtils.isEmpty(inputText)) {
+            llTags.setVisibility(View.VISIBLE);
             SoftInput.hideSoftInput(SearchActivity.this);
             ToastUtil.showLongToast(SearchActivity.this, getString(R.string.search_text_is_empty));
         } else {
+            llTags.setVisibility(View.GONE);
 //            getCookDetailFromQuery(inputText, "0");
             getData();
         }
