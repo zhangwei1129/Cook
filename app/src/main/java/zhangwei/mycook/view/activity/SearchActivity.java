@@ -2,7 +2,7 @@ package zhangwei.mycook.view.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -46,7 +48,8 @@ public class SearchActivity extends FormatActivity {
     private TextView btnSearch;
     private ListView lvSearchList;
 
-    private LinearLayout llTags, llSearch;
+    private LinearLayout llTags;
+    private RelativeLayout rlSearch;
 
     private String inputText;
     private CookListAdapter adapter;
@@ -55,7 +58,8 @@ public class SearchActivity extends FormatActivity {
     private NiftyProgressBar bar;
 
     boolean isAnim = false;
-    private int lastFirstVisibleItemPosition;
+    int searchHeight;
+    int currentScrollHeight;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SearchActivity.class);
@@ -69,17 +73,17 @@ public class SearchActivity extends FormatActivity {
         initWidget();
         initData();
         initListener();
+
     }
 
     @Override
     public void initWidget() {
-        llSearch = (LinearLayout) findViewById(R.id.llSearch);
+        rlSearch = (RelativeLayout) findViewById(R.id.rlSearch);
         btnBack = (FrameLayout) findViewById(R.id.flBack);
         etSearch = (EditText) findViewById(R.id.etSearch);
         btnClean = (ImageView) findViewById(R.id.ivClean);
         btnSearch = (TextView) findViewById(R.id.tvSearch);
         lvSearchList = (ListView) findViewById(R.id.searchList);
-//        lvSearchList.setVisibility(View.GONE);
 
         llTags = (LinearLayout) findViewById(R.id.llTags);
     }
@@ -93,7 +97,10 @@ public class SearchActivity extends FormatActivity {
         lvSearchList.setAdapter(adapter);
 //        adapter.setList(temp);
         lvSearchList.setEmptyView(findViewById(R.id.rl_search_empty));
+
+
     }
+
 
     @Override
     public void initListener() {
@@ -129,7 +136,8 @@ public class SearchActivity extends FormatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    doSearch();
+                    llTags.setVisibility(View.GONE);
+                    adapter.setList(null);
                 }
                 return false;
             }
@@ -138,6 +146,7 @@ public class SearchActivity extends FormatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SoftInput.hideSoftInput();
                 doSearch();
             }
         });
@@ -152,13 +161,16 @@ public class SearchActivity extends FormatActivity {
         lvSearchList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == SCROLL_STATE_IDLE) {
-                    lastFirstVisibleItemPosition = view.getFirstVisiblePosition();
-                    if (view.getLastVisiblePosition() >= (view.getCount() - 2)) {
-                        pn = String.valueOf(temp.size());
+                switch (scrollState) {
+                    case SCROLL_STATE_IDLE:
+                        currentScrollHeight = getScrollY();
+                        int count = view.getCount() - 1;
+                        if (view.getLastVisiblePosition() >= (count - 1)) {
+                            pn = String.valueOf(count);
 //                    getCookDetailFromQuery(inputText, pn);
-                        getData();
-                    }
+                            getData();
+                        }
+                        break;
                 }
 
             }
@@ -166,80 +178,87 @@ public class SearchActivity extends FormatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (firstVisibleItem == 0) {
-                    llSearch.setVisibility(View.VISIBLE);
+                    rlSearch.setVisibility(View.VISIBLE);
                 }
-                if (firstVisibleItem > lastFirstVisibleItemPosition && llSearch.getVisibility() == View.VISIBLE) {
-                    Log.d("dc", "上滑");
-//                        llSearch.setVisibility(View.GONE);
-                    if (!isAnim) {
-                        animSearch();
+                if (!isAnim) {
+                    if (currentScrollHeight < getScrollY() && rlSearch.getVisibility() == View.VISIBLE) {
+                        doAnim(rlSearch, searchHeight, 0);
                     }
-
-
+                    if (currentScrollHeight > getScrollY() && rlSearch.getVisibility() == View.GONE) {
+                        rlSearch.setVisibility(View.VISIBLE);
+                        doAnim(rlSearch, 0, searchHeight);
+                    }
                 }
-                if (firstVisibleItem < lastFirstVisibleItemPosition) {
-                    Log.d("dc", "下滑");
-                    llSearch.setVisibility(View.VISIBLE);
-                }
+                currentScrollHeight = getScrollY();
             }
         });
 
     }
 
-    private void animSearch() {
-//        ScaleAnimation animation = new ScaleAnimation(1, 1, 1, 0);
-//        animation.setDuration(200);
-//        llSearch.startAnimation(animation);
-//        animation.setAnimationListener(new Animation.AnimationListener() {
-//            @Override
-//            public void onAnimationStart(Animation animation) {
-//                isAnim = true;
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                llSearch.setVisibility(View.GONE);
-//                isAnim = false;
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//
-//            }
-//        });
-
-        ObjectAnimator animator = ObjectAnimator.ofFloat(llSearch, "scaleY", 1, 0);
-        animator.setDuration(500);
-        animator.start();
-        animator.addListener(new AnimatorListenerAdapter() {
+    private void doAnim(final View v, final int from, final int to) {
+        isAnim = true;
+        ValueAnimator animator = ValueAnimator.ofInt(from, to);
+        animator.setDuration(200);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                llSearch.setVisibility(View.GONE);
-                isAnim = false;
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int val = (int) animation.getAnimatedValue();
+                setLayoutParams(v, val);
             }
+        });
 
+        animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
-                isAnim = true;
+                if (from == 0) {
+                    setLayoutParams(v, 0);
+                }
+                v.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                if (to == 0) {
+                    v.setVisibility(View.GONE);
+                    setLayoutParams(v, from);
+                }
+                isAnim = false;
             }
         });
-
+        animator.start();
     }
 
-    private void doSearch() {
+    private void setLayoutParams(View v, int height) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        v.setLayoutParams(params);
+    }
 
+
+    public int getScrollY() {
+        View c = lvSearchList.getChildAt(0);
+        if (c == null) {
+            return 0;
+        }
+        int firstVisiblePosition = lvSearchList.getFirstVisiblePosition();
+        int top = c.getTop();
+        return (-top + firstVisiblePosition * c.getHeight()) / 1000;
+    }
+
+
+    private void doSearch() {
+        searchHeight = rlSearch.getHeight();
         inputText = etSearch.getText().toString();
-        if (TextUtils.isEmpty(inputText)) {
-            llTags.setVisibility(View.VISIBLE);
-            SoftInput.hideSoftInput(SearchActivity.this);
-            ToastUtil.showLongToast(SearchActivity.this, getString(R.string.search_text_is_empty));
-        } else {
+//        if (TextUtils.isEmpty(inputText)) {
+//            llTags.setVisibility(View.VISIBLE);
+//            SoftInput.hideSoftInput(SearchActivity.this);
+//            ToastUtil.showLongToast(SearchActivity.this, getString(R.string.search_text_is_empty));
+//        } else {
             llTags.setVisibility(View.GONE);
 //            getCookDetailFromQuery(inputText, "0");
             getData();
-        }
+//        }
     }
 
     /**

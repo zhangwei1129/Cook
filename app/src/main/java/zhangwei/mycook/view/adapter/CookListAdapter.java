@@ -1,14 +1,17 @@
 package zhangwei.mycook.view.adapter;
 
 import android.app.Activity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import zhangwei.mycook.R;
 import zhangwei.mycook.common.NiftyListAdapter;
 import zhangwei.mycook.common.util.ToastUtil;
+import zhangwei.mycook.common.util.Util;
 import zhangwei.mycook.model.CookDetail;
 import zhangwei.mycook.view.activity.CookDetailActivity;
 import zhangwei.mycook.volleyutil.VolleyUtil;
@@ -35,6 +38,11 @@ public class CookListAdapter extends NiftyListAdapter<CookDetail> {
         }
 
         final CookDetail detail = getList().get(position);
+        int dimension = Util.getDisplayWidth();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dimension, dimension);
+        params.setMargins(Util.dp2px( 16), 0, 0, 0);
+        holder.ivPhoto.setLayoutParams(params);
+        holder.ivPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
         VolleyUtil.load(detail.albums.get(0), holder.ivPhoto, R.drawable.image);
         holder.tvCookName.setText(detail.title);
         holder.tvIngredients.setText(detail.ingredients);

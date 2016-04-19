@@ -35,7 +35,6 @@ public class CookDetailAdapter extends NiftyListAdapter<CookDetail> {
         final CookDetail detail = getList().get(position);
 
         holder.mName.setText(detail.title);
-        Log.d(TAG, "getView() called with: " + "detail.title = [" + detail.title + "], position = [" + position + "]");
         holder.mName.append(" + " + detail.id);
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
