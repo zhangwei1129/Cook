@@ -34,7 +34,7 @@ import zhangwei.mycook.common.util.ToastUtil;
 import zhangwei.mycook.manager.Manager;
 import zhangwei.mycook.model.CookDetail;
 import zhangwei.mycook.view.adapter.CookListAdapter;
-import zhangwei.mycook.view.customview.NiftyProgressBar;
+import zhangwei.mycook.common.customview.NiftyProgressBar;
 
 /**
  * Created by zhangwei25 on 2016/4/14.
@@ -81,6 +81,8 @@ public class SearchActivity extends FormatActivity {
         rlSearch = (RelativeLayout) findViewById(R.id.rlSearch);
         btnBack = (FrameLayout) findViewById(R.id.flBack);
         etSearch = (EditText) findViewById(R.id.etSearch);
+        etSearch.setFocusable(true);
+//        etSearch.setFocusableInTouchMode(false);
         btnClean = (ImageView) findViewById(R.id.ivClean);
         btnSearch = (TextView) findViewById(R.id.tvSearch);
         lvSearchList = (ListView) findViewById(R.id.searchList);

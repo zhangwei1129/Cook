@@ -110,7 +110,7 @@ public class GuideActivity extends FormatActivity {
 
                         @Override
                         public void onClick(View v) {
-                            MainActivity.start(GuideActivity.this);
+                            HomeActivity.start(GuideActivity.this);
                             GuideActivity.this.finish();
                         }
                     });

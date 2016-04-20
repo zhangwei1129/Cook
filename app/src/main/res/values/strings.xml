@@ -28,4 +28,12 @@
     <string name="test_detail_step7">http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/113/11275_091636100cbe10d2.jpg</string>
     <string name="test_detail_step77">7.大火收汁。</string>
 
+    <string name="title_activity_tag_editor">编辑标签</string>
+    <string name="add_tags">添加标签</string>
+    <string name="tags_default">标签(默认)</string>
+    <string name="tags_small">标签(小号)</string>
+    <string name="tags_large">标签(大号)</string>
+    <string name="submit" translatable="false">Submit</string>
+    <string name="edit" translatable="false">Edit</string>
+
 </resources>

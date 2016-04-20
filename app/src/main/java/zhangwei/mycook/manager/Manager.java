@@ -2,6 +2,8 @@ package zhangwei.mycook.manager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,10 +17,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import zhangwei.mycook.Config;
 import zhangwei.mycook.common.AbstractManager;
 import zhangwei.mycook.common.SimpleListener;
+import zhangwei.mycook.common.customview.taggroup.TagsTable;
 import zhangwei.mycook.model.Category;
 import zhangwei.mycook.model.CookDetail;
 import zhangwei.mycook.parser.AllParser;
@@ -40,8 +44,27 @@ public class Manager extends AbstractManager {
         return instance;
     }
 
+    /**
+     * 搜索历史
+     */
+    public String[] getSearchHistory() {
+        String s = sp.getString("SEARCH_HISTORY", "");
+        String[] stringArr = s.split(",");
+        return stringArr;
+    }
 
-    public void getCookDetailFromQuery(Context mContext, String menu,String pn, final SimpleListener<ArrayList<CookDetail>> listener) {
+    /**
+     * 设置历史
+     */
+    public void setSearchHistory(String s) {
+        sp.edit().putString("SEARCH_HISTORY", s).apply();
+
+    }
+
+    /**
+     * 菜名搜索
+     */
+    public void getCookDetailFromQuery(Context mContext, String menu, String pn, final SimpleListener<ArrayList<CookDetail>> listener) {
         Parameters params = new Parameters();
         params.add("menu", menu);
         if (TextUtils.isEmpty(pn)) {
@@ -93,6 +116,9 @@ public class Manager extends AbstractManager {
         });
     }
 
+    /**
+     * 菜谱类别
+     */
     public void getCookCategory(Context mContext, final SimpleListener<ArrayList<Category>> listener) {
         String json = sp.getString("COOK_CATEGORY", "");
         if (TextUtils.isEmpty(json)) {
@@ -150,6 +176,9 @@ public class Manager extends AbstractManager {
 
     }
 
+    /**
+     * 菜id搜索
+     */
     public void getCookDetailFromCid(Context mContext, int cid, String pn, final SimpleListener<ArrayList<CookDetail>> listener) {
         Parameters params = new Parameters();
         params.add("cid", cid);
@@ -196,6 +225,9 @@ public class Manager extends AbstractManager {
 
     }
 
+    /**
+     * 菜类别搜索
+     */
     public void getCookDetailFromId(Context mContext, int id, final SimpleListener<ArrayList<CookDetail>> listener) {
         Parameters params = new Parameters();
         params.add("id", id);

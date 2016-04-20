@@ -1,4 +1,4 @@
-package zhangwei.mycook.view.customview;
+package zhangwei.mycook.common.customview;
 
 import android.content.Context;
 import android.content.res.TypedArray;

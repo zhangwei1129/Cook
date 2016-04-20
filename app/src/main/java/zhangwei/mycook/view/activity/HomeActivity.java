@@ -6,28 +6,31 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import zhangwei.mycook.R;
 import zhangwei.mycook.common.FormatActivity;
+import zhangwei.mycook.common.customview.taggroup.MainActivity;
 
 /**
  * Created by zhangwei25 on 2016/4/12.
  */
-public class MainActivity extends FormatActivity {
+public class HomeActivity extends FormatActivity {
 
     private static final String TAG = "MainActivity";
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, MainActivity.class);
+        Intent starter = new Intent(context, HomeActivity.class);
         context.startActivity(starter);
     }
 
     FrameLayout btnSearch;
+    TextView tvName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mian);
+        setContentView(R.layout.activity_home);
         initWidget();
         initData();
         initListener();
@@ -36,6 +39,7 @@ public class MainActivity extends FormatActivity {
     @Override
     public void initWidget() {
         btnSearch = (FrameLayout) findViewById(R.id.flSearch);
+        tvName = (TextView) findViewById(R.id.tvName);
     }
 
     @Override
@@ -48,7 +52,13 @@ public class MainActivity extends FormatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchActivity.start(MainActivity.this);
+                SearchActivity.start(HomeActivity.this);
+            }
+        });
+        tvName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.start(HomeActivity.this);
             }
         });
     }

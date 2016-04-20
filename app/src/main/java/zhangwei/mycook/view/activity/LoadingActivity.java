@@ -28,7 +28,7 @@ public class LoadingActivity extends FormatActivity {
             Config.User.setShowGuide(false);
             GuideActivity.start(LoadingActivity.this);
         } else {
-            MainActivity.start(LoadingActivity.this);
+            HomeActivity.start(LoadingActivity.this);
         }
         finish();
     }

@@ -30,7 +30,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.activity.MainActivity"/>
+        <activity android:name=".common.customview.taggroup.MainActivity"/>
+        <activity android:name=".common.customview.taggroup.TagEditorActivity"/>
+
+        <activity android:name=".view.activity.HomeActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"/>
 
         <activity
             android:name=".view.activity.GuideActivity"
@@ -45,7 +50,7 @@
         <activity
             android:name=".view.activity.SearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".view.activity.CookDetailActivity"
             android:screenOrientation="portrait"
