@@ -56,6 +56,7 @@ public class LoadingActivity extends FormatActivity {
         }
     }
 
+
     @Override
     public void initWidget() {
 

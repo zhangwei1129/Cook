@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import zhangwei.mycook.R;
 import zhangwei.mycook.common.FormatActivity;
-import zhangwei.mycook.common.customview.taggroup.MainActivity;
 
 /**
  * Created by zhangwei25 on 2016/4/12.
@@ -55,11 +54,6 @@ public class HomeActivity extends FormatActivity {
                 SearchActivity.start(HomeActivity.this);
             }
         });
-        tvName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.start(HomeActivity.this);
-            }
-        });
+
     }
 }

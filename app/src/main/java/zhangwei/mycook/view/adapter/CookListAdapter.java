@@ -39,8 +39,8 @@ public class CookListAdapter extends NiftyListAdapter<CookDetail> {
 
         final CookDetail detail = getList().get(position);
         int dimension = Util.getDisplayWidth();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dimension, dimension);
-        params.setMargins(Util.dp2px( 16), 0, 0, 0);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dimension/3, dimension/3);
+        params.setMargins(Util.dp2px(16), 0, 0, 0);
         holder.ivPhoto.setLayoutParams(params);
         holder.ivPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
         VolleyUtil.load(detail.albums.get(0), holder.ivPhoto, R.drawable.image);

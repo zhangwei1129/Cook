@@ -2,8 +2,6 @@ package zhangwei.mycook.manager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,16 +15,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import zhangwei.mycook.Config;
 import zhangwei.mycook.common.AbstractManager;
 import zhangwei.mycook.common.SimpleListener;
-import zhangwei.mycook.common.customview.taggroup.TagsTable;
 import zhangwei.mycook.model.Category;
 import zhangwei.mycook.model.CookDetail;
 import zhangwei.mycook.parser.AllParser;
-import zhangwei.mycook.view.activity.SearchResultActivity;
 
 
 /**

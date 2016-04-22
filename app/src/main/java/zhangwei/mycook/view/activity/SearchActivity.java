@@ -23,18 +23,20 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import zhangwei.mycook.R;
 import zhangwei.mycook.common.FormatActivity;
 import zhangwei.mycook.common.SimpleListener;
+import zhangwei.mycook.common.customview.NiftyProgressBar;
+import zhangwei.mycook.common.customview.tag.TagGroup;
 import zhangwei.mycook.common.util.SoftInput;
 import zhangwei.mycook.common.util.ToastUtil;
 import zhangwei.mycook.manager.Manager;
 import zhangwei.mycook.model.CookDetail;
 import zhangwei.mycook.view.adapter.CookListAdapter;
-import zhangwei.mycook.common.customview.NiftyProgressBar;
 
 /**
  * Created by zhangwei25 on 2016/4/14.
@@ -49,6 +51,8 @@ public class SearchActivity extends FormatActivity {
     private ListView lvSearchList;
 
     private LinearLayout llTags;
+    private TagGroup tagGroup;
+    private String[] tags;
     private RelativeLayout rlSearch;
 
     private String inputText;
@@ -88,10 +92,15 @@ public class SearchActivity extends FormatActivity {
         lvSearchList = (ListView) findViewById(R.id.searchList);
 
         llTags = (LinearLayout) findViewById(R.id.llTags);
+        tagGroup = (TagGroup) findViewById(R.id.tg);
     }
 
     @Override
     public void initData() {
+        tags = Manager.getInstance().getSearchHistory();
+        Log.e("zw", "tags = " + tags[0]);
+        tagGroup.setTags(tags);
+
         bar = NiftyProgressBar.newInstance(this);
         temp = new ArrayList<>();
         pn = "0";
@@ -195,6 +204,13 @@ public class SearchActivity extends FormatActivity {
             }
         });
 
+        tagGroup.setTagClickListener(new TagGroup.tagClickListener() {
+            @Override
+            public void tagClick(String string) {
+                Toast.makeText(SearchActivity.this, string, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void doAnim(final View v, final int from, final int to) {
@@ -252,15 +268,35 @@ public class SearchActivity extends FormatActivity {
     private void doSearch() {
         searchHeight = rlSearch.getHeight();
         inputText = etSearch.getText().toString();
-//        if (TextUtils.isEmpty(inputText)) {
-//            llTags.setVisibility(View.VISIBLE);
-//            SoftInput.hideSoftInput(SearchActivity.this);
-//            ToastUtil.showLongToast(SearchActivity.this, getString(R.string.search_text_is_empty));
-//        } else {
-            llTags.setVisibility(View.GONE);
+        if (TextUtils.isEmpty(inputText)) {
+            llTags.setVisibility(View.VISIBLE);
+            SoftInput.showSoftInput(etSearch);
+            ToastUtil.showLongToast(SearchActivity.this, getString(R.string.search_text_is_empty));
+        } else {
+//            llTags.setVisibility(View.GONE);
+            SoftInput.hideSoftInput();
 //            getCookDetailFromQuery(inputText, "0");
-            getData();
-//        }
+            String[] s = Manager.getInstance().getSearchHistory();
+            boolean isContain = false;
+            for (int i = 0; i < s.length; i++) {
+                if (inputText.equals(s[i])) {
+                    for (int k = i; k > 0; k--) {
+                        s[k] = s[k-1];
+                    }
+                }
+            }
+            if (!isContain) {
+                String searchHistory = inputText;
+                for (int i = 0; i < s.length; i++) {
+                    searchHistory += ",";
+                    searchHistory += s[i];
+                }
+                Log.e("zw", "searchHistory = " + searchHistory);
+                Manager.getInstance().setSearchHistory(searchHistory);
+            }
+
+//            getData();
+        }
     }
 
     /**

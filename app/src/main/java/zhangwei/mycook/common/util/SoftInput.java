@@ -21,10 +21,10 @@ public class SoftInput {
 
     }
 
-    public static void showSoftInput(Activity context, View view) {
+    public static void showSoftInput(View view) {
         view.setFocusable(true);
         view.requestFocus();
-        InputMethodManager imm = ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE));
+        InputMethodManager imm = ((InputMethodManager) App.getCurrentActivity().getSystemService(Context.INPUT_METHOD_SERVICE));
         imm.showSoftInput(view, 0);
     }
 }

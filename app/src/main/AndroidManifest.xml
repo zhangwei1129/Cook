@@ -30,8 +30,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".common.customview.taggroup.MainActivity"/>
-        <activity android:name=".common.customview.taggroup.TagEditorActivity"/>
 
         <activity android:name=".view.activity.HomeActivity"
                   android:screenOrientation="portrait"

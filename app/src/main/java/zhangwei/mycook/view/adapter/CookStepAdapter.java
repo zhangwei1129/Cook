@@ -39,7 +39,7 @@ public class CookStepAdapter extends NiftyListAdapter<CookDetail.Step> {
 
         final CookDetail.Step step = getList().get(position);
         int dimension = Util.getDisplayWidth();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dimension, dimension);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dimension/3, dimension/3);
         params.setMargins(Util.dp2px( 16), 0, 0, 0);
         holder.ivPhoto.setLayoutParams(params);
         holder.ivPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
