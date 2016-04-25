@@ -43,8 +43,13 @@ public class Manager extends AbstractManager {
      */
     public String[] getSearchHistory() {
         String s = sp.getString("SEARCH_HISTORY", "");
-        String[] stringArr = s.split(",");
-        return stringArr;
+        if (TextUtils.isEmpty(s)) {
+            return new String[]{"-1"};
+        } else {
+            String[] stringArr = s.split(",");
+            return stringArr;
+        }
+
     }
 
     /**
