@@ -55,7 +55,7 @@ public class SearchActivity extends FormatActivity {
     private ListView lvSearchList;
 
     private FlowLayout flTags;
-    private String[] tags;
+    private ArrayList<String> tags;
     private RelativeLayout rlSearch;
 
     private String inputText;
@@ -97,13 +97,16 @@ public class SearchActivity extends FormatActivity {
         lvSearchList = (ListView) findViewById(R.id.searchList);
 
         flTags = (FlowLayout) findViewById(R.id.flTags);
+//        flTags.relayoutToAlign();
+//        flTags.relayoutToCompressAndAlign();
+//        flTags.relayoutToCompress();
         tvHint = (TextView) findViewById(R.id.tvHint);
     }
 
     @Override
     public void initData() {
         tags = Manager.getInstance().getSearchHistory();
-        if (!tags[0].equals("-1") && tags.length > 0) {
+        if (tags != null) {
             setTags(tags);
             tvHint.setVisibility(View.GONE);
         }
@@ -287,22 +290,22 @@ public class SearchActivity extends FormatActivity {
     }
 
     private void saveSearchHistory(String inputText) {
-        for (int i = 0; i < tags.length; i++) {
-            if (inputText.equals(tags[i])) {
-                for (int k = i; k >= 0; k--) {
-                    tags[k] = tags[k - 1];
-                }
-                tags[0] = inputText;
+        for (int i = 0; i < tags.size(); i++) {
+            if (tags.get(i).equals(inputText)) {
+                tags.remove(i);
             }
         }
-
-        String searchHistory = null;
-        for (int i = 0; i < tags.length; i++) {
-            searchHistory += tags[i];
-            searchHistory += ",";
+        tags.add(0, inputText);
+        ArrayList<String> temp = new ArrayList<>();
+        if (tags.size() > 10) {
+            for (int i = 0; i < 10; i++) {
+                temp.add(tags.get(i));
+            }
+        } else {
+            temp = tags;
         }
-        Log.e("zw", "searchHistory = " + searchHistory);
-        Manager.getInstance().setSearchHistory(searchHistory);
+        Manager.getInstance().setSearchHistory(temp);
+        setTags(temp);
     }
 
     /**
@@ -414,21 +417,10 @@ public class SearchActivity extends FormatActivity {
         });
     }
 
-    public void setTags(String[] tags) {
-        String[] tempTags;
-        int size = tags.length;
-        if (size > 10) {
-            tempTags = new String[10];
-            size = 10;
-        } else {
-            tempTags = new String[tags.length];
-        }
-        for (int i = 0; i < size; i++) {
-            tempTags[i] = tags[i];
-        }
-
-
-        for (int i = 0; i < size; i++) {
+    public void setTags(ArrayList<String> tags) {
+        flTags.setVisibility(View.VISIBLE);
+        flTags.removeAllViews();
+        for (int i = 0; i < tags.size(); i++) {
             int ranHeight = Util.dp2px(30);
             ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ranHeight);
             params.setMargins(Util.dp2px(10), 0, Util.dp2px(10), 0);
@@ -436,7 +428,7 @@ public class SearchActivity extends FormatActivity {
             tv.setPadding(Util.dp2px(15), 0, Util.dp2px(15), 0);
             tv.setTextColor(getResources().getColor(R.color.white));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            tv.setText(tempTags[i]);
+            tv.setText(tags.get(i));
             tv.setGravity(Gravity.CENTER_VERTICAL);
 //                tv.setSingleLine();
             tv.setBackgroundResource(R.drawable.item_tag_selector);
@@ -447,7 +439,9 @@ public class SearchActivity extends FormatActivity {
                 }
             });
             flTags.addView(tv, params);
-            flTags.setVisibility(View.VISIBLE);
         }
+//        flTags.relayoutToAlign();
+//        flTags.relayoutToCompressAndAlign();
+//        flTags.relayoutToCompress();
     }
 }

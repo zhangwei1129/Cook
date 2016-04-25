@@ -41,23 +41,27 @@ public class Manager extends AbstractManager {
     /**
      * 搜索历史
      */
-    public String[] getSearchHistory() {
+    public ArrayList<String> getSearchHistory() {
         String s = sp.getString("SEARCH_HISTORY", "");
         if (TextUtils.isEmpty(s)) {
-            return new String[]{"-1"};
+            return null;
         } else {
+            ArrayList<String> strings = new ArrayList<>();
             String[] stringArr = s.split(",");
-            return stringArr;
+            for (int i = 0; i < stringArr.length; i++) {
+                strings.add(stringArr[i]);
+            }
+            return strings;
         }
-
     }
 
     /**
      * 设置历史
      */
-    public void setSearchHistory(String s) {
-        sp.edit().putString("SEARCH_HISTORY", s).apply();
-
+    public void setSearchHistory(ArrayList<String> strings) {
+        String s = strings.toString();
+        String substring = s.substring(1, s.length() - 1).replaceAll(" ","");
+        sp.edit().putString("SEARCH_HISTORY", substring).apply();
     }
 
     /**
