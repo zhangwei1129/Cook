@@ -97,9 +97,6 @@ public class SearchActivity extends FormatActivity {
         lvSearchList = (ListView) findViewById(R.id.searchList);
 
         flTags = (FlowLayout) findViewById(R.id.flTags);
-//        flTags.relayoutToAlign();
-//        flTags.relayoutToCompressAndAlign();
-//        flTags.relayoutToCompress();
         tvHint = (TextView) findViewById(R.id.tvHint);
     }
 
@@ -109,6 +106,8 @@ public class SearchActivity extends FormatActivity {
         if (tags != null) {
             setTags(tags);
             tvHint.setVisibility(View.GONE);
+        } else {
+            tags = new ArrayList<>();
         }
 
         bar = NiftyProgressBar.newInstance(this);
@@ -297,8 +296,8 @@ public class SearchActivity extends FormatActivity {
         }
         tags.add(0, inputText);
         ArrayList<String> temp = new ArrayList<>();
-        if (tags.size() > 10) {
-            for (int i = 0; i < 10; i++) {
+        if (tags.size() > 5) {
+            for (int i = 0; i < 5; i++) {
                 temp.add(tags.get(i));
             }
         } else {
@@ -440,8 +439,5 @@ public class SearchActivity extends FormatActivity {
             });
             flTags.addView(tv, params);
         }
-//        flTags.relayoutToAlign();
-//        flTags.relayoutToCompressAndAlign();
-//        flTags.relayoutToCompress();
     }
 }
