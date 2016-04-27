@@ -21,12 +21,12 @@ public class Util {
 
     public static int getDisplayHeight() {
         final int heightPixels = App.getCurrentActivity().getResources().getDisplayMetrics().heightPixels;
-        return px2dp(heightPixels);
+        return heightPixels;
     }
 
     public static int getDisplayWidth() {
         final int widthPixels = App.getCurrentActivity().getResources().getDisplayMetrics().widthPixels;
-        return px2dp(widthPixels);
+        return widthPixels;
     }
 
 

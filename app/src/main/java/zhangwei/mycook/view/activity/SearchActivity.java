@@ -277,14 +277,14 @@ public class SearchActivity extends FormatActivity {
             ToastUtil.showLongToast(SearchActivity.this, getString(R.string.search_text_is_empty));
         } else {
             etSearch.setText("");
-//            flTags.setVisibility(View.GONE);
+            flTags.setVisibility(View.GONE);
             SoftInput.hideSoftInput();
 //            getCookDetailFromQuery(inputText, "0");
 
             saveSearchHistory(inputText);
 
 
-//            getData();
+            getData();
         }
     }
 
@@ -304,7 +304,7 @@ public class SearchActivity extends FormatActivity {
             temp = tags;
         }
         Manager.getInstance().setSearchHistory(temp);
-        setTags(temp);
+//        setTags(temp);
     }
 
     /**
