@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import zhangwei.mycook.R;
+import zhangwei.mycook.common.customview.UpMarqueeTextView;
 import zhangwei.mycook.common.util.ToastUtil;
 import zhangwei.mycook.common.util.Util;
 
@@ -38,6 +39,8 @@ public class HomeFragment extends Fragment {
     int[] imgId = new int[]{R.drawable.imgpager1, R.drawable.imgpager2, R.drawable.imgpager3, R.drawable.imgpager4};
     private Handler timeHandler = new Handler();
     private boolean isFlip = false;
+
+    UpMarqueeTextView tvUpMarquee;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -62,9 +65,13 @@ public class HomeFragment extends Fragment {
                 (ViewGroup.LayoutParams.MATCH_PARENT, Util.getDisplayWidth() / 3);
         loopPager.setLayoutParams(params);
 
+        tvUpMarquee = (UpMarqueeTextView) rootView.findViewById(R.id.tvUpMarquee);
+
+
     }
 
     private void initData() {
+        tvUpMarquee.setText("https://github.com/Neacy/UpMarqueerTextView");
         mViews = new ArrayList<View>();
         ImageView mImage;
         for (int i = 0; i < imgId.length; i++) {
