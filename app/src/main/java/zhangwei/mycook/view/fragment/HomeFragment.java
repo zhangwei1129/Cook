@@ -1,16 +1,13 @@
 package zhangwei.mycook.view.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -73,9 +70,8 @@ public class HomeFragment extends Fragment {
     private void initData() {
         tvUpMarquee.setText("https://github.com/Neacy/UpMarqueerTextView");
         mViews = new ArrayList<View>();
-        ImageView mImage;
         for (int i = 0; i < imgId.length; i++) {
-            mImage = new ImageView(getContext());
+            ImageView mImage = new ImageView(getContext());
             mImage.setImageResource(imgId[i]);
             mImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
             final int finalI = i;

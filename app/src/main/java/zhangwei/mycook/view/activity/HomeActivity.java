@@ -44,6 +44,7 @@ public class HomeActivity extends FormatActivity {
         initData();
         initListener();
         getSupportFragmentManager().beginTransaction().replace(R.id.flContent, fmHome).commit();
+
     }
 
     @Override

@@ -17,10 +17,7 @@ public class LoadingActivity extends FormatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (switching) {
-            checkLogin();
-        }
+        checkLogin();
     }
 
     private void checkLogin() {
@@ -30,10 +27,10 @@ public class LoadingActivity extends FormatActivity {
         } else {
             HomeActivity.start(LoadingActivity.this);
         }
-        finish();
+        LoadingActivity.this.finish();
     }
 
-    boolean switching = false;
+
     private Handler mHandler = new Handler();
     private long timer = 0;
 
